@@ -13,6 +13,8 @@
 #include <iostream>
 #include <time.h>
 #include <random>
+#include <vector>
+#include <set>
 
 #include "Span.hpp"
 
@@ -20,6 +22,8 @@
 
 using	std::cout;
 using	std::endl;
+using	std::vector;
+using	std::multiset;
 
 int	main()
 {
@@ -39,6 +43,58 @@ int	main()
 		cout << "Shortest span: " BLUE "<" << span->shortestSpan() << ">" RESET << endl;
 
 		delete span;
+	}
+	cout << endl;
+
+	cout << CYAN "[Trying span with 10 numbers using multiset iterator and vector iterator]" RESET << endl;
+	{
+		int						len = 10;
+		multiset<int>			set;
+		Span	*span = new Span(len);
+		
+		cout << CYAN "[Trying with multiset iterator]" RESET << endl;
+		for (int i = 0; i < len; i++)
+			set.insert(rand() % 10000);
+
+		cout << MAGENTA "Printing Set..." RESET << endl;
+		for (multiset<int>::iterator i = set.begin(); i != set.end(); i++)
+			cout << MAGENTA "<" << *i << ">" RESET << endl;
+
+		cout << endl;
+		cout << MAGENTA "Adding numbers into Span using iterators..." RESET << endl;
+		span->addNumber(set.begin(), set.end());
+
+		cout << endl;
+		cout << MAGENTA "Printing Span..." RESET << endl;
+		span->printSpan();
+		cout << "Longest span: " BLUE "<" << span->longestSpan() << ">" RESET << endl;
+		cout << "Shortest span: " BLUE "<" << span->shortestSpan() << ">" RESET << endl;
+
+		delete span;
+
+		vector<int>			vec;
+		Span	*span2 = new Span(len);
+		
+		cout << CYAN "[Trying with vector iterator]" RESET << endl;
+		for (int i = 0; i < len; i++)
+			vec.push_back(rand() % 10000);
+
+		cout << MAGENTA "Printing Set..." RESET << endl;
+		for (vector<int>::iterator i = vec.begin(); i != vec.end(); i++)
+			cout << MAGENTA "<" << *i << ">" RESET << endl;
+
+		cout << endl;
+		cout << MAGENTA "Adding numbers into Span using iterators..." RESET << endl;
+		span2->addNumber(vec.begin(), vec.end());
+
+		cout << endl;
+		cout << MAGENTA "Printing Span..." RESET << endl;
+		span2->printSpan();
+		cout << "Longest span2: " BLUE "<" << span2->longestSpan() << ">" RESET << endl;
+		cout << "Shortest span2: " BLUE "<" << span2->shortestSpan() << ">" RESET << endl;
+
+		delete span2;
+
 	}
 	cout << endl;
 
@@ -115,34 +171,34 @@ int	main()
 	}
 	cout << endl;
 
-//	cout << CYAN "[Trying span with 10000 numbers]" RESET << endl;
-//	{
-//		int		len = 10000;
-//		Span	*span = new Span(len);
-//		
-//		for (int i = 0; i < len; i++)
-//			span->addNumber(rand() % 100000);
-//
-//		cout << MAGENTA "Printing Span..." RESET << endl;
-//		span->printSpan();
-//		cout << "Longest span: " BLUE "<" << span->longestSpan() << ">" RESET << endl;
-//		cout << "Shortest span: " BLUE "<" << span->shortestSpan() << ">" RESET << endl;
-//
-//		delete span;
-//	}
-//	cout << endl;
-//
-//
-//	cout << CYAN "[Trying PDF main.cpp]" RESET << endl;
-//	{
-//		Span sp = Span(5);
-//
-//		sp.addNumber(6);
-//		sp.addNumber(3);
-//		sp.addNumber(17);
-//		sp.addNumber(9);
-//		sp.addNumber(11);
-//		std::cout << sp.shortestSpan() << std::endl;
-//		std::cout << sp.longestSpan() << std::endl;
-//	}
+	cout << CYAN "[Trying span with 10000 numbers]" RESET << endl;
+	{
+		int		len = 10000;
+		Span	*span = new Span(len);
+		
+		for (int i = 0; i < len; i++)
+			span->addNumber(rand() % 100000);
+
+		cout << MAGENTA "Printing Span..." RESET << endl;
+		span->printSpan();
+		cout << "Longest span: " BLUE "<" << span->longestSpan() << ">" RESET << endl;
+		cout << "Shortest span: " BLUE "<" << span->shortestSpan() << ">" RESET << endl;
+
+		delete span;
+	}
+	cout << endl;
+
+
+	cout << CYAN "[Trying PDF main.cpp]" RESET << endl;
+	{
+		Span sp = Span(5);
+
+		sp.addNumber(6);
+		sp.addNumber(3);
+		sp.addNumber(17);
+		sp.addNumber(9);
+		sp.addNumber(11);
+		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp.longestSpan() << std::endl;
+	}
 }

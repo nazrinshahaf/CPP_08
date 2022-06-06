@@ -6,7 +6,7 @@
 /*   By: nazrinshahaf <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 12:40:39 by nazrinsha         #+#    #+#             */
-/*   Updated: 2022/06/06 14:22:58 by nazrinsha        ###   ########.fr       */
+/*   Updated: 2022/06/06 14:38:28 by nazrinsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		Span::shortestSpan(void) const
 	multiset<int>::iterator next;
 	int						diff;
 
-	if (this->_multiset.size() <= 1)
+	if (this->_multiset.size() <= 1 || this->_multiset.empty())
 		throw SpanEmpty();
 	start = this->_multiset.begin();
 	next = ++this->_multiset.begin();
@@ -94,7 +94,7 @@ int		Span::longestSpan(void) const
 	int		start;
 	int		end;
 
-	if (this->_multiset.size() <= 1)
+	if (this->_multiset.size() <= 1 || this->_multiset.empty())
 		throw SpanEmpty();
 	start = *(this->_multiset.begin());
 	end = *(this->_multiset.rbegin());

@@ -6,7 +6,7 @@
 /*   By: nazrinshahaf <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 12:35:49 by nazrinsha         #+#    #+#             */
-/*   Updated: 2022/06/06 13:46:15 by nazrinsha        ###   ########.fr       */
+/*   Updated: 2022/06/06 14:44:02 by nazrinsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ class	Span
 		~Span();
 
 		Span	&operator=(Span const &tocopy);
+		
 		void	addNumber(int num);
+		template <typename Iterator>
+		void	addNumber(Iterator start, Iterator end);
+		
 		int		shortestSpan(void) const;
 		int		longestSpan(void) const;
 
@@ -50,5 +54,7 @@ class	Span
 
 		//Multiset is already presorted and can hold duplicates unlike set
 };
+
+#include "Span.ipp"
 
 #endif
