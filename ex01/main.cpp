@@ -103,6 +103,7 @@ int	main()
 		int		len = 10;
 		Span	*span = new Span(len);
 		
+		cout << CYAN "[Trying with normal fill]" RESET << endl;
 		cout << MAGENTA "Filling Span with 10 numbers..." RESET << endl;
 		for (int i = 0; i < len; i++)
 			span->addNumber(rand() % 10000);
@@ -118,6 +119,38 @@ int	main()
 		}
 
 		delete span;
+
+		Span			*span2 = new Span(len);
+		multiset<int>	set;
+
+		cout << CYAN "[Trying with iterator fill]" RESET << endl;
+		cout << MAGENTA "Filling Multiset with 10 numbers..." RESET << endl;
+		for (int i = 0; i < 1; i++)
+			set.insert(rand() % 10000);
+
+		cout << endl;
+		cout << MAGENTA "Printing Multiset..." RESET << endl;
+		for (multiset<int>::iterator i = set.begin(); i != set.end(); i++)
+			cout << MAGENTA "<" << *i << ">" RESET << endl;
+
+		cout << endl;
+		cout << MAGENTA "Filling Span with 10 numbers..." RESET << endl;
+		for (int i = 0; i < len; i++)
+			span2->addNumber(rand() % 10000);
+		span2->printSpan();
+
+		cout << endl;
+		cout << MAGENTA "Adding one number into Span using iterators..." RESET << endl;
+		try
+		{
+			span2->addNumber(set.begin(), set.end());
+		}
+		catch (Span::SpanFull &exception)
+		{
+			cout << "Exception caught: " RED "<" << exception.what() << ">" RESET << endl;
+		}
+
+		delete span2;
 	}
 	cout << endl;
 
