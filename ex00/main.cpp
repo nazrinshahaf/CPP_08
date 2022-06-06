@@ -6,76 +6,82 @@
 /*   By: nfernand <nfernand@student.42kl.edu.m      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:45:07 by nfernand          #+#    #+#             */
-/*   Updated: 2022/06/03 16:31:00 by nfernand         ###   ########.fr       */
+/*   Updated: 2022/06/06 12:32:15 by nazrinsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
+#include <deque>
 #include <algorithm>
 #include <time.h>
 #include <random>
+#include <exception>
+
+#include "easyfind.hpp"
 
 #include "colours.h"
 
 using	std::endl;
 using	std::cout;
 using	std::vector;
-
-template <template <typename, typename> class Container, typename Element, typename Allocator>
-void	easyfind(Container<Element, Allocator> &container, int to_compare)
-{
-	(void)container;
-	(void)to_compare;
-
-	//std::vector<int>::iterator	test;
-	Container<Element, Allocator>::iterator	test;
-}
-
-//template<typename Container, typename Datatype>
-//template<typename Datatype, template <typename, typename> class Container>
-//void	easyfind(Container &container, int to_compare)
-//{
-//	//std::vector<int>::iterator	number_found;
-//	Container<Datatype, std::vector<Datatype>>	test;
-//	//Container	test;
-//
-//	(void)to_compare;
-//	(void)container;
-//	//(void)number_found;
-//
-//	for (int i = 0; i < 10; i++)
-//		test.push_back(rand() % 50);
-//	
-//	for (int i = 0; i < 10; i++)
-//		cout << MAGENTA "<" << test[i] << ">" RESET << endl;
-//
-////	for (int i = 0; i < 10; i++)
-////		cout << MAGENTA "<" << container[i] << ">" RESET << endl;
-////	cout << endl;
-////
-////	cout << "looking for number :" << to_compare << endl;
-////	(void)to_compare;
-////	number_found = std::find(container.begin(), container.end(), 9);
-////	if (number_found != container.end())
-////		cout << "NUMBER FOOUND" << endl;
-////	else
-////		cout << "NUMBER NOT FOOUND" << endl;
-//}
-//template <typename Container>
-//void easyfind(Container const &container, int to_compare)
-//{
-//	std::sort(container);
-//	(void)to_compare;
-//}
+using	std::deque;
 
 int	main()
 {
-	vector<int> vector_container;
-
 	srand(time(0));
-	for (int i = 0; i < 10; i++)
-		vector_container.push_back(rand() % 50);
+	cout << CYAN "[Trying vector container]" RESET << endl;
+	{
+		vector<int> vector_container;
+		int	num_found;
+		int	num_to_find;
 
-	easyfind(vector_container, rand() % 50);
+		cout << MAGENTA "Filling vector with random numbers..." RESET << endl;
+		for (int i = 0; i < 10; i++)
+			vector_container.push_back(rand() % 50);
+
+		for (int i = 0; i < 10; i++)
+			cout << MAGENTA "<" << vector_container[i] << ">" RESET << endl;
+		
+		num_to_find = rand() % 50;
+		cout << "Num to find: " MAGENTA "<" << num_to_find << ">" RESET <<endl;
+	
+		try
+		{
+			num_found = easyfind(vector_container, num_to_find);
+			cout << GREEN "NUM FOUND: "<< num_found << RESET << endl;
+		}
+		catch(NumNotFoundException &exception)
+		{
+			cout << "Exception caught: " RED "<" << exception.what() << ">" RESET << endl;
+			cout << MAGENTA "Returning to main..." RESET << endl;
+		}
+	}
+	cout << CYAN "[Trying deque container]" RESET << endl;
+	{
+		deque<int> deque_container;
+		int	num_found;
+		int	num_to_find;
+
+		cout << MAGENTA "Filling vector with random numbers..." RESET << endl;
+		for (int i = 0; i < 10; i++)
+			deque_container.push_back(rand() % 50);
+
+		for (int i = 0; i < 10; i++)
+			cout << MAGENTA "<" << deque_container[i] << ">" RESET << endl;
+		
+		num_to_find = rand() % 50;
+		cout << "Num to find: " MAGENTA "<" << num_to_find << ">" RESET <<endl;
+	
+		try
+		{
+			num_found = easyfind(deque_container, num_to_find);
+			cout << GREEN "NUM FOUND: "<< num_found << RESET << endl;
+		}
+		catch(NumNotFoundException &exception)
+		{
+			cout << "Exception caught: " RED "<" << exception.what() << ">" RESET << endl;
+			cout << MAGENTA "Returning to main..." RESET << endl;
+		}
+	}
 }
